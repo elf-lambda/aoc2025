@@ -15,8 +15,8 @@ for (let e of lines) {
     switch (left) {
         case "R":
             // Part 2
-            // for (let i = 0; i < right; i++) {
-            //     zeroCountRotation += (index + i * 1) % 100 == 0;
+            // for (let i = 0n; i < right; i++) {
+            //     zeroCountRotation += BigInt((index + i) % 100n == 0n);
             // }
             // Optimized
             const stepsToFirstZeroR = index === 0n ? 100n : 100n - index;
@@ -29,8 +29,8 @@ for (let e of lines) {
             break;
         case "L":
             // Part 2
-            // for (let i = 0; i < right; i++) {
-            //     zeroCountRotation += (index - i * 1 + 100) % 100 == 0;
+            // for (let i = 0n; i < right; i++) {
+            //     zeroCountRotation += BigInt((index - i + 100n) % 100n == 0n);
             // }
             // Optimized
             const stepsToFirstZeroL = index === 0n ? 100n : index;
@@ -38,7 +38,8 @@ for (let e of lines) {
                 zeroCountRotation += 1n + (right - stepsToFirstZeroL) / 100n;
             }
             // Part 1
-            index = (((index - right) % 100n) + 100n) % 100n;
+            // index = (((index - right) % 100n) + 100n) % 100n;
+            index = (index - (right % 100n) + 100n) % 100n;
             break;
     }
 
