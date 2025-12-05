@@ -10,19 +10,6 @@ for (let e of input[0]) {
     ranges.push([Number(range[0]), Number(range[1])]);
 }
 
-for (let e of input[1]) {
-    let num = Number(e);
-    for (let [start, end] of ranges) {
-        if (num >= start && num <= end) {
-            total++;
-            break;
-        }
-    }
-}
-
-print(total);
-
-// Part 2
 ranges.sort((a, b) => a[0] - b[0]);
 
 // Merge
@@ -39,6 +26,38 @@ for (let i = 0; i < ranges.length; i++) {
     }
 }
 
+function binarySearchRange(num: number, ranges: number[][]): boolean {
+    let left = 0;
+    let right = ranges.length - 1;
+
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+        let [start, end] = ranges[mid];
+
+        if (num >= start && num <= end) {
+            return true;
+        } else if (num < start) {
+            // Go Left
+            right = mid - 1;
+        } else {
+            // Go Right
+            left = mid + 1;
+        }
+    }
+
+    return false;
+}
+
+// Part 1
+for (let e of input[1]) {
+    let num = Number(e);
+    if (binarySearchRange(num, merged)) {
+        total++;
+    }
+}
+print(total);
+
+// Part 2
 for (let [start, end] of merged) {
     total_2 += end - start + 1;
 }
